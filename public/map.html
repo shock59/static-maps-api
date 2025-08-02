@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- TODO: Install MapLibre from npm instead of using CDN -->
+    <script src="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.js"></script>
+    <link
+      href="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+      }
+
+      #map {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      const map = new maplibregl.Map({
+        container: "map",
+        center: [0, 0],
+        zoom: 1,
+        attributionControl: {
+          compact: false,
+          customAttribution:
+            "samv.me | Protomaps | © OpenStreetMap - openstreetmap.org/copyright",
+        },
+      });
+
+      (async () => {
+        const res = await fetch(
+          "https://tileserver.samv.me/styles/light-modified/style.json"
+        );
+        let style = await res.json();
+
+        // Attribution needs to be specified manually, this removes the automatic attribution
+        for (let source of style.sources) source.attribution = "";
+
+        map.setStyle(style);
+        map.once("load", () => {
+          requestAnimationFrame(() => {
+            window.MAP_LOADED = true;
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

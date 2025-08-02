@@ -6,6 +6,8 @@ const port = 3000;
 
 const browser = await chromium.launch();
 
+app.use(express.static("public"));
+
 app.get("/", (req, res) => {
   res.send(
     `<h1>Home Page</h1>
@@ -22,8 +24,14 @@ app.get("/screenshot", async (req, res) => {
     },
   });
   const page = await context.newPage();
-  await page.goto("http://127.0.0.1:3000");
+  await page.goto(`http://127.0.0.1:${port}/map.html`);
+
   await page.title(); // Wait for page load
+
+  // Wait for the map to load
+  await page.waitForFunction(() => {
+    return (window as any).MAP_LOADED;
+  });
 
   const buffer = await page.screenshot({ type: "png" });
 
