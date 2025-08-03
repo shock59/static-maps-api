@@ -17,24 +17,31 @@ app.get("/", (req, res) => {
 });
 
 app.get("/screenshot", async (req, res) => {
-  const params = {
+  const viewport = {
     width: Number(req.query.width) || 640,
     height: Number(req.query.height) || 480,
+  };
+  const params: { [key: string]: any } = {
     lon: Number(req.query.lon) || 0,
     lat: Number(req.query.lat) || 0,
     zoom: Number(req.query.zoom) || 1,
+
     theme: req.query.theme || "light",
+
+    marker: !!req.query.markerLon,
+    markerLon: Number(req.query.markerLon) || 0,
+    markerLat: Number(req.query.markerLat) || 0,
+    markerColor: req.query.markerColor || "3FB1CE",
   };
 
   const context = await browser.newContext({
-    viewport: {
-      width: params.width,
-      height: params.height,
-    },
+    viewport,
   });
   const page = await context.newPage();
   await page.goto(
-    `http://127.0.0.1:${port}/map.html?lon=${params.lon}&lat=${params.lat}&zoom=${params.zoom}&theme=${params.theme}`
+    `http://127.0.0.1:${port}/map.html?${Object.keys(params)
+      .map((key) => `${key}=${params[key]}`)
+      .join("&")}`
   );
 
   await page.title(); // Wait for page load

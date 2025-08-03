@@ -10,6 +10,12 @@ const options = {
   center: [Number(params.get("lon")), Number(params.get("lat"))],
   zoom: Number(params.get("zoom")),
   theme: params.get("theme"),
+  marker: params.get("marker") == "true",
+  markerPosition: [
+    Number(params.get("markerLon")),
+    Number(params.get("markerLat")),
+  ],
+  markerColor: `#${params.get("markerColor")}`,
 };
 
 const map = new maplibregl.Map({
@@ -22,6 +28,12 @@ const map = new maplibregl.Map({
       "samv.me | Protomaps | © OpenStreetMap - openstreetmap.org/copyright",
   },
 });
+
+if (options.marker) {
+  new maplibregl.Marker({ color: options.markerColor })
+    .setLngLat(options.markerPosition)
+    .addTo(map);
+}
 
 (async () => {
   const res = await fetch(
