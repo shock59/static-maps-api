@@ -1,9 +1,15 @@
+const themePaths = {
+  light: "light-modified",
+  dark: "dark-modified",
+};
+
 const paramsString = window.location.search;
 const params = new URLSearchParams(paramsString);
 
 const options = {
   center: [Number(params.get("lon")), Number(params.get("lat"))],
   zoom: Number(params.get("zoom")),
+  theme: params.get("theme"),
 };
 
 const map = new maplibregl.Map({
@@ -19,7 +25,7 @@ const map = new maplibregl.Map({
 
 (async () => {
   const res = await fetch(
-    "https://tileserver.samv.me/styles/light-modified/style.json"
+    `https://tileserver.samv.me/styles/${themePaths[options.theme]}/style.json`
   );
   let style = await res.json();
 

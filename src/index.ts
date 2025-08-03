@@ -23,6 +23,7 @@ app.get("/screenshot", async (req, res) => {
     lon: Number(req.query.lon) || 0,
     lat: Number(req.query.lat) || 0,
     zoom: Number(req.query.zoom) || 1,
+    theme: req.query.theme || "light",
   };
 
   const context = await browser.newContext({
@@ -33,7 +34,7 @@ app.get("/screenshot", async (req, res) => {
   });
   const page = await context.newPage();
   await page.goto(
-    `http://127.0.0.1:${port}/map.html?lon=${params.lon}&lat=${params.lat}&zoom=${params.zoom}`
+    `http://127.0.0.1:${port}/map.html?lon=${params.lon}&lat=${params.lat}&zoom=${params.zoom}&theme=${params.theme}`
   );
 
   await page.title(); // Wait for page load
