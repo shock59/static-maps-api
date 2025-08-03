@@ -31,7 +31,7 @@ app.get("/screenshot", async (req, res) => {
     marker: !!req.query.markerLon,
     markerLon: Number(req.query.markerLon) || 0,
     markerLat: Number(req.query.markerLat) || 0,
-    markerColor: req.query.markerColor || "3FB1CE",
+    markerColor: req.query.markerColor || "ff5050",
   };
 
   const context = await browser.newContext({
