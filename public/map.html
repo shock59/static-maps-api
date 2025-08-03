@@ -44,7 +44,8 @@
         let style = await res.json();
 
         // Attribution needs to be specified manually, this removes the automatic attribution
-        for (let source of style.sources) source.attribution = "";
+        for (let source of Object.keys(style.sources))
+          style.sources[source].attribution = "";
 
         map.setStyle(style);
         map.once("load", () => {
