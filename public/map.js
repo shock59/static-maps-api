@@ -76,8 +76,6 @@ if (options.marker) {
 
     map.setStyle(style);
   }
-
-  console.log("okay");
   map.once("load", () => {
     requestAnimationFrame(() => {
       window.MAP_LOADED = true;
