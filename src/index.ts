@@ -4,7 +4,10 @@ import { chromium } from "playwright";
 const app = express();
 const port = 3000;
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({
+  headless: false,
+  args: ["--disable-web-security"],
+});
 
 app.use(express.static("public"));
 
