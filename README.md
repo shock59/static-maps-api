@@ -8,7 +8,7 @@ This was built with TypeScript, with [Express](https://expressjs.com/) as the we
 
 ## API endpoint documentation
 
-The API is available at `/screenshot` with the following parameters:
+The API is available at `/map` with the following parameters:
 
 * `width`: Width of the map in pixels. Default: `640`
 * `height`: Height of the map in pixels. Default: `480`

@@ -8,7 +8,7 @@ const browser = await chromium.launch();
 
 app.use(express.static("public"));
 
-app.get("/screenshot", async (req, res) => {
+app.get("/map", async (req, res) => {
   const viewport = {
     width: Number(req.query.width) || 640,
     height: Number(req.query.height) || 480,
