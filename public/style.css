@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #101010;
+  color: #efefef;
+  font-family: "Fira Sans";
+}
+
+main {
+  max-width: 720px;
+  padding: 16px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+p {
+  font-size: 18px;
+}
+
+code {
+  font-family: "Fira Code";
+}
+
+a {
+  color: #559fff;
+}

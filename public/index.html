@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Static Map API</title>
+
+    <!-- TODO: Install MapLibre from npm instead of using CDN -->
+    <script src="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.js"></script>
+    <link
+      href="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Static Maps API</h1>
+
+      <p>
+        Easily show a map of anywhere in the world anywhere you can display an
+        image. This API is completely free to use, with options to customise the
+        location, size, zoom, and colour theme of the map as well as letting you
+        place a custom marker.
+      </p>
+
+      <p>
+        This project is open source and the source code is available on
+        <a href="https://github.com/shock59/static-maps-api">GitHub</a>. You can
+        also check out my <a href="https://samv.me">personal website</a> if you
+        want to see other things I have made :)
+      </p>
+
+      <h2>How to use the API</h2>
+      <p>
+        You can build a request to
+        <a href="/screenshot"><code>staticmap.samv.me/screenshot</code></a> with
+        the parameters below to get a PNG map image. No API key is required.
+      </p>
+
+      <p>
+        Example request:
+        <br />
+        <a
+          href="/screenshot?markerLat=51.507&markerLon=-0.128&lat=50&lon=10&zoom=3"
+          ><code
+            >/screenshot?markerLat=51.507&markerLon=-0.128&lat=50&lon=10&zoom=3</code
+          ></a
+        >
+      </p>
+
+      <img src="example.png" width="640" height="480" />
+
+      <h2>Parameters</h2>
+
+      <h3><code>width</code> and <code>height</code></h3>
+      <p>Width and height of the map in pixels. Defaults to 640x480.</p>
+
+      <h3><code>lon</code> and <code>lat</code></h3>
+      <p>
+        Longitude and latitude coordinates the map should be centred on.
+        Defaults to 0 0.
+      </p>
+
+      <h3><code>zoom</code></h3>
+      <p>
+        Zoom level of the map from 1-22 (with 1 being the most zoomed out).
+        Defaults to 1.
+      </p>
+
+      <h3><code>theme</code></h3>
+      <p>
+        Colour theme of the map, can be either <code>light</code> (default) or
+        <code>dark</code>.
+      </p>
+
+      <h3><code>markerLon</code> and <code>markerLat</code></h3>
+      <p>
+        Longitude and latitude coordinates of the marker. If you exclude these
+        options, there will be no marker on the map.
+      </p>
+
+      <h3><code>markerColor</code></h3>
+      <p>
+        Colour of the marker as a hex code (excluding the <code>#</code>).
+        Defaults to <code style="color: #ff5050">ff5050</code>.
+      </p>
+    </main>
+  </body>
+</html>

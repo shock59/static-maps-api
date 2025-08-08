@@ -8,14 +8,6 @@ const browser = await chromium.launch();
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.send(
-    `<h1>Home Page</h1>
-    <br>
-    <h3>Current time: ${new Date(Date.now()).toTimeString()}</h3>`
-  );
-});
-
 app.get("/screenshot", async (req, res) => {
   const viewport = {
     width: Number(req.query.width) || 640,
