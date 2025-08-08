@@ -22,6 +22,7 @@ const map = new maplibregl.Map({
   container: "map",
   center: options.center,
   zoom: options.zoom,
+  fadeDuration: 0,
   attributionControl: {
     compact: false,
     customAttribution:
