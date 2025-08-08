@@ -4,6 +4,8 @@ Easily show a map of anywhere in the world anywhere you can display an image. Th
 
 ![Example map generated with the API](assets/example.png)
 
+This was built with TypeScript, with [Express](https://expressjs.com/) as the web framework, [Protomaps](https://protomaps.com/) for map tiles, [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) to render the map, and [Playwright](https://playwright.dev/) to take a screenshot of the map to provide to the user.
+
 ## API endpoint documentation
 
 The API is available at `/screenshot` with the following parameters:
