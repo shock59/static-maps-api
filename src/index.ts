@@ -28,6 +28,20 @@ app.get("/map", async (req, res) => {
     markerColor: req.query.markerColor || "ff5050",
   };
 
+  // Check if the params were acceptable
+  const sendError = (message: string) => res.status(400).send(message);
+
+  if (isNaN(viewport.width) || viewport.width > 2000 || viewport.width < 1)
+    return sendError("Invalid width (must be between 1-2000)");
+  if (isNaN(viewport.height) || viewport.height > 2000 || viewport.height < 1)
+    return sendError("Invalid height (must be between 1-2000)");
+  if (isNaN(params.zoom) || params.zoom > 22 || params.zoom < 1)
+    return sendError("Invalid zoom (must be between 1-22)");
+  if (!["light", "dark", "satellite"].includes(params.theme))
+    return sendError('Invalid theme (must be "light", "dark", or "satellite")');
+  if (!/^([0-9A-F]{3}){1,2}$/i.test(params.markerColor))
+    return sendError("Invalid marker colour (must be a valid hex code)");
+
   const context = await browser.newContext({
     viewport,
   });
