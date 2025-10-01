@@ -1,5 +1,6 @@
 import express from "express";
 import { chromium } from "playwright";
+import { countryGeojson } from "./countryGeojson.js";
 
 const app = express();
 const port = 3000;
@@ -8,6 +9,7 @@ const browser = await chromium.launch({
   args: ["--disable-web-security"],
 });
 
+app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 app.get("/map", async (req, res) => {
@@ -67,6 +69,24 @@ app.get("/map", async (req, res) => {
   await context.close();
   res.contentType("png");
   res.send(buffer);
+});
+
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+app.get("/countryCodes", (req, res) => {
+  const countries = countryGeojson.features
+    .map((country) => ({
+      name: country.properties.name_long,
+      iso: country.properties.iso_a2_eh,
+    }))
+    .toSorted((a, b) =>
+      a.name.toLowerCase().localeCompare(b.name.toLocaleLowerCase())
+    );
+  res.render("countryCodes", {
+    countries,
+  });
 });
 
 app.listen(port, () => {

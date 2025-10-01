@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="countryGeojson.js"></script>
+    <script>
+      for (let country of countryGeojson.features) {
+        console.log(
+          `${country.properties.iso_a2_eh} - ${country.properties.name_long}`
+        );
+      }
+      console.log(countryGeojson.features.length);
+    </script>
+  </body>
+</html>

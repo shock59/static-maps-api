@@ -35,3 +35,12 @@ code {
 a {
   color: #559fff;
 }
+
+li {
+  font-size: 18px;
+}
+
+.country-code {
+  font-family: "Fira Code";
+  font-weight: bold;
+}

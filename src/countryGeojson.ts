@@ -1,4 +1,4 @@
-const countryGeojson = {
+export const countryGeojson = {
   type: "FeatureCollection",
   features: [
     {

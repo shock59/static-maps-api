@@ -10,10 +10,12 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
     "playwright": "^1.54.2"
   },
   "devDependencies": {
+    "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.3",
     "tsx": "^4.20.3",
     "typescript": "^5.9.2"
