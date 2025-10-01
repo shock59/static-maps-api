@@ -51,6 +51,23 @@ const map = new maplibregl.Map({
     compact: false,
   },
 });
+if (params.get("country")) {
+  const geojson = countryGeojson.features.find(
+    (feature) =>
+      feature.properties.iso_a2_eh == params.get("country").toUpperCase()
+  );
+  const bbox = turf.bbox(geojson);
+  map.fitBounds(
+    [
+      [bbox[0], bbox[1]],
+      [bbox[2], bbox[3]],
+    ],
+    {
+      animate: false,
+      padding: 24,
+    }
+  );
+}
 
 if (options.marker) {
   new maplibregl.Marker({ color: options.markerColor })

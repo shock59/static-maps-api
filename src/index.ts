@@ -26,6 +26,8 @@ app.get("/map", async (req, res) => {
     markerLon: Number(req.query.markerLon) || 0,
     markerLat: Number(req.query.markerLat) || 0,
     markerColor: req.query.markerColor || "ff5050",
+
+    country: req.query.country || "",
   };
 
   // Check if the params were acceptable
