@@ -2,6 +2,9 @@ import express from "express";
 import { chromium } from "playwright";
 import { countryGeojson } from "./countryGeojson.js";
 
+const cgjString = `const countryGeojson = ${JSON.stringify(countryGeojson)}`;
+console.log(cgjString);
+
 const app = express();
 const port = 3000;
 
@@ -87,6 +90,10 @@ app.get("/countryCodes", (req, res) => {
   res.render("countryCodes", {
     countries,
   });
+});
+
+app.get("/countryGeojson.js", (req, res) => {
+  res.send(cgjString);
 });
 
 app.listen(port, () => {
