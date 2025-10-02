@@ -82,6 +82,12 @@ app.get("/countryCodes", (req, res) => {
     .map((country) => ({
       name: country.properties.name_long,
       iso: country.properties.iso_a2_eh,
+      flag:
+        country.properties.iso_a2_eh == "SY"
+          ? "/SY.png"
+          : country.properties.iso_a2_eh == "XK"
+          ? "/XK.png"
+          : `https://flagsapi.com/${country.properties.iso_a2_eh}/flat/32.png`,
     }))
     .toSorted((a, b) =>
       a.name.toLowerCase().localeCompare(b.name.toLocaleLowerCase())
