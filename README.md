@@ -2,6 +2,8 @@
 
 Easily show a map of anywhere in the world anywhere you can display an image. This API is completely free to use, with options to customise the location, size, zoom, and colour theme of the map as well as letting you place a custom marker.
 
+[Try it out here!](https://staticmap.samv.me)
+
 ![Example map generated with the API](public/example.png)
 
 This was built with TypeScript, with [Express](https://expressjs.com/) as the web framework, [Protomaps](https://protomaps.com/) for map tiles, [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) to render the map, and [Playwright](https://playwright.dev/) to take a screenshot of the map to provide to the user.
@@ -15,7 +17,7 @@ The API is available at `/map` with the following parameters:
 * `lon`: Longitude coordinate the map should be centred on. Default: `0`
 * `lat`: Latitude coordinate the map should be centred on. Default: `0`
 * `zoom`: Zoom level of the map from 1-22 (with 1 being the most zoomed out). Default: `1`
-* `country`: Country code of the country to focus the map on. This is optional, and if you set it then it will overide the `lon`, `lat`, and `zoom` options.
+* `country`: Country code of the country to focus the map on. This is optional, and if you set it then it will overide the `lon`, `lat`, and `zoom` options. You can view a list of the valid country codes [here](https://staticmap.samv.me/countryCodes).
 * `theme`: Theme of the map, can be `light`, `dark`, or `satellite`. Default: `light`
 * `markerLon`: Longitude coordinate of the marker. If you exclude this option there will be no marker on the map.
 * `markerLat`: Latitude coordinate of the marker.
