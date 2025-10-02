@@ -15,6 +15,7 @@ The API is available at `/map` with the following parameters:
 * `lon`: Longitude coordinate the map should be centred on. Default: `0`
 * `lat`: Latitude coordinate the map should be centred on. Default: `0`
 * `zoom`: Zoom level of the map from 1-22 (with 1 being the most zoomed out). Default: `1`
+* `country`: Country code of the country to focus the map on. This is optional, and if you set it then it will overide the `lon`, `lat`, and `zoom` options.
 * `theme`: Theme of the map, can be `light`, `dark`, or `satellite`. Default: `light`
 * `markerLon`: Longitude coordinate of the marker. If you exclude this option there will be no marker on the map.
 * `markerLat`: Latitude coordinate of the marker.
