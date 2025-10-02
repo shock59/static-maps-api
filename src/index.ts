@@ -3,7 +3,6 @@ import { chromium } from "playwright";
 import { countryGeojson } from "./countryGeojson.js";
 
 const cgjString = `const countryGeojson = ${JSON.stringify(countryGeojson)}`;
-console.log(cgjString);
 
 const app = express();
 const port = 3000;
