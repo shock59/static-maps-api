@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import mbgl from "@maplibre/maplibre-gl-native";
 import sharp from "sharp";
 
-const res = await fetch("https://tiles.openfreemap.org/styles/bright");
+const res = await fetch("https://tiles.samv.me/style/style");
 const style = await res.json();
 
 const map = new mbgl.Map();
