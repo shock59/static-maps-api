@@ -51,6 +51,17 @@ app.get("/map", async (c) => {
     zoom: options.zoom,
   });
 
+  const attribution = Buffer.from(
+    `<svg width="${options.width}" height="${options.height}">
+      <style>
+        .attribution {
+          fill: #000000; font-size: 11px; font-family: "Noto Sans";
+        }
+      </style>
+      <text x="${options.width - 6}" y="${options.height - 6}" text-anchor="end" class="attribution">${"samv.me | © OpenStreetMap openstreetmap.org/copyright"}</text>
+    </svg>`,
+  );
+
   const image = await sharp(buffer, {
     raw: {
       width: options.width,
@@ -58,6 +69,7 @@ app.get("/map", async (c) => {
       channels: 4,
     },
   })
+    .composite([{ input: attribution, top: 0, left: 0 }])
     .png()
     .toBuffer();
 
