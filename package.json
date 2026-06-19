@@ -11,6 +11,7 @@
   "dependencies": {
     "@hono/node-server": "^2.0.4",
     "@maplibre/maplibre-gl-native": "^6.4.1",
+    "@napi-rs/canvas": "^1.0.0",
     "hono": "^4.12.25",
     "joi": "^18.2.1",
     "sharp": "^0.35.1",

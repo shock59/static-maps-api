@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import mbgl from "@maplibre/maplibre-gl-native";
 import sharp from "sharp";
 import * as zod from "zod";
+import { createCanvas, GlobalFonts } from "@napi-rs/canvas";
 
 const MapOptions = zod.object({
   width: zod.coerce.number().min(1).max(2000).default(640),
@@ -11,6 +12,8 @@ const MapOptions = zod.object({
   lon: zod.coerce.number(),
   zoom: zod.coerce.number().min(0).max(21).default(0),
 });
+
+GlobalFonts.registerFromPath("./assets/noto/noto-sans-latin-400-normal.ttf");
 
 const res = await fetch("https://tiles.samv.me/style/style");
 const style = await res.json();
@@ -51,16 +54,33 @@ app.get("/map", async (c) => {
     zoom: options.zoom,
   });
 
-  const attribution = Buffer.from(
-    `<svg width="${options.width}" height="${options.height}">
-      <style>
-        .attribution {
-          fill: #000000; font-size: 11px; font-family: "Noto Sans";
-        }
-      </style>
-      <text x="${options.width - 6}" y="${options.height - 6}" text-anchor="end" class="attribution">${"samv.me | © OpenStreetMap openstreetmap.org/copyright"}</text>
-    </svg>`,
+  const canvas = createCanvas(options.width, options.height);
+  const ctx = canvas.getContext("2d");
+
+  const attributionText =
+    "samv.me | © OpenStreetMap openstreetmap.org/copyright";
+  const attributionPadding = 4;
+  ctx.font = "11px Noto Sans";
+  const measuredText = ctx.measureText(attributionText);
+
+  ctx.fillStyle = "#ffffffa0";
+  ctx.fillRect(
+    options.width - measuredText.width - attributionPadding * 2,
+    options.height -
+      measuredText.actualBoundingBoxAscent -
+      attributionPadding * 2,
+    measuredText.width + attributionPadding * 2,
+    measuredText.actualBoundingBoxAscent + attributionPadding * 2,
   );
+
+  ctx.fillStyle = "#000000";
+  ctx.fillText(
+    attributionText,
+    options.width - measuredText.width - attributionPadding,
+    options.height - attributionPadding,
+  );
+
+  const attribution = await canvas.encode("png");
 
   const image = await sharp(buffer, {
     raw: {
