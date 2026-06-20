@@ -4,6 +4,7 @@ import mbgl from "@maplibre/maplibre-gl-native";
 import sharp from "sharp";
 import * as zod from "zod";
 import { createCanvas, GlobalFonts } from "@napi-rs/canvas";
+import Queue from "./Queue.js";
 
 const MapOptions = zod.object({
   width: zod.coerce.number().min(1).max(2000).default(640),
@@ -34,6 +35,8 @@ const render: (
   });
 };
 
+const queue = new Queue((i: () => Promise<void>) => i());
+
 const app = new Hono();
 app.get("/", (c) => c.text("hai"));
 
@@ -47,11 +50,17 @@ app.get("/map", async (c) => {
     );
   }
 
-  const buffer = await render({
-    width: options.width,
-    height: options.height,
-    center: [options.lon, options.lat],
-    zoom: options.zoom,
+  const buffer = await new Promise((resolve) => {
+    queue.enqueue(async () => {
+      const buffer = await render({
+        width: options.width,
+        height: options.height,
+        center: [options.lon, options.lat],
+        zoom: options.zoom,
+      });
+
+      resolve(buffer);
+    });
   });
 
   const canvas = createCanvas(options.width, options.height);
