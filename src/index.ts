@@ -21,21 +21,8 @@ const style = await res.json();
 
 const map = new mbgl.Map();
 map.load(style);
-const render: (
-  options: mbgl.RenderOptions,
-) => Promise<Uint8Array<ArrayBufferLike>> = (options) => {
-  return new Promise((resolve, reject) => {
-    map.render(options, (err, buffer) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(buffer);
-    });
-  });
-};
 
-const queue = new Queue((i: () => Promise<void>) => i());
+const queue = new Queue((i: () => void) => i());
 
 const app = new Hono();
 app.get("/", (c) => c.text("hai"));
@@ -50,18 +37,19 @@ app.get("/map", async (c) => {
     );
   }
 
-  const buffer = await new Promise((resolve) => {
-    queue.enqueue(async () => {
-      const buffer = await render({
-        width: options.width,
-        height: options.height,
-        center: [options.lon, options.lat],
-        zoom: options.zoom,
+  const buffer = await new Promise<Uint8Array<ArrayBufferLike>>(
+    (resolve, reject) => {
+      queue.enqueue(() => {
+        map.render(options, (err, buffer) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(buffer);
+        });
       });
-
-      resolve(buffer);
-    });
-  });
+    },
+  );
 
   const canvas = createCanvas(options.width, options.height);
   const ctx = canvas.getContext("2d");

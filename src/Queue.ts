@@ -1,4 +1,4 @@
-type Handler<T> = (item: T) => Promise<void>;
+type Handler<T> = (item: T) => void;
 
 export default class Queue<T> {
   #handler: Handler<T>;
